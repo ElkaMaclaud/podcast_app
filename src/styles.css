@@ -17,13 +17,15 @@ button {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
-
 /**
  * Sidebar CSS
  */
 
+#list {
+  padding: 15px;
+}
 #sidebar {
-  background-color: #2196F3;
+  background-color: #2196f3;
   padding: 15px;
 }
 
@@ -38,7 +40,6 @@ button {
   }
 }
 
-
 /**
  * Content CSS
  */
@@ -49,5 +50,26 @@ button {
 }
 
 .author {
-	font-size:.8rem;
+  font-size: 0.8rem;
+}
+.floating-btn {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+.modal {
+  max-width: 600px;
+  max-height: 300px;
+  margin: 100px auto;
+  overflow-y: auto;
+  background: #fff;
+}
+.modal > h1 {
+  text-align: center;
+}
+.modal .modal-content {
+  padding: 1rem;
+}
+.error {
+  color: red;
 }
