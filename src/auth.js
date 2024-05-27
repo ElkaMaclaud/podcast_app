@@ -16,9 +16,9 @@ export function getAuthForm() {
 	`;
 }
 
-export function authWithEmailAndPassword(email, password) {
+export async function authWithEmailAndPassword(email, password) {
 	const apiKey = "AIzaSyDW1u7yqt86jh2G7Ju8W5-JDXRcvzvJgl0";
-	return fetch(
+	const res = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
     {
       method: "POST",
@@ -27,8 +27,8 @@ export function authWithEmailAndPassword(email, password) {
 		"Content-Type": "application/json"
 	  }
     })
-	.then(response => response.json())
-	.then(data => data.idToken)
+	const data = await res.json()
+	return data.idToken;
 }
 
 

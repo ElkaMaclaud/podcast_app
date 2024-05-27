@@ -1,6 +1,6 @@
 export class Question {
-  static create(question) {
-    fetch(
+  static async create(question) {
+    const response = await fetch(
       "https://podcast-f2bba-default-rtdb.asia-southeast1.firebasedatabase.app/questions.json",
       {
         method: "POST",
@@ -10,32 +10,28 @@ export class Question {
         },
       }
     )
-      .then((response) => response.json())
-      .then((response) => {
-        question.id = response.name;
-        return question;
-      })
-      .then(addToLocalStorage)
-      .then(Question.renderList);
+    const data = await response.json()
+      question.id = data.name;
+      addToLocalStorage(question);
+      Question.renderList();
+      return question;
   }
 
-  static fetch(token) {
+  static async fetch(token) {
     if (!token) {
       return Promise.resolve("<p class='error'>У вас нет токена</p>");
     }
-    return fetch(
+    const response = await fetch(
       `https://podcast-f2bba-default-rtdb.asia-southeast1.firebasedatabase.app/questions.json?auth=${token}`
     )
-      .then((response) => response.json())
-      .then((response) => {
-        if (response && response.error) {
-          return `<p class='error'>${response.error}</p>`;
+      const data = await response.json()
+        if (data && data.error) {
+          return `<p class='error'>${data.error}</p>`;
         }
 
-        return response
-          ? Object.keys(response).map((key) => ({ ...response[key], id: key }))
+        return data
+          ? Object.keys(data).map((key) => ({ ...data[key], id: key }))
           : [];
-      });
   }
 
   static renderList() {
